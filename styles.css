@@ -502,3 +502,35 @@ body {
 .status-option.is-active-no {
   opacity: 0.25;
 }
+.status-group {
+  display: flex;
+  gap: 6px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.78rem;
+  opacity: 0.6;              /* 初期：両方そこそこ見える */
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.status-icon {
+  margin-right: 3px;
+}
+
+/* アクティブ（光ってる方） */
+.status-pill.is-active {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
+  transform: translateY(-1px);
+}
+
+/* 非アクティブ（暗い方） */
+.status-pill.is-inactive {
+  opacity: 0.25;
+}
