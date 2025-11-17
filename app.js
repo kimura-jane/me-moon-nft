@@ -1,13 +1,13 @@
-
 // ====== 設定 ======
 
-// スプレッドシートのCSVエクスポートURL
-// スプシ側で「ウェブに公開」したあと、必要ならここを書き換えればOK。
+// スプレッドシートの CSV エクスポートURL
+// 「ウェブに公開」や「エクスポート」で取得した CSV のURLをここに入れる。
+// 必要に応じて差し替えてOK。
 const SHEET_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/1-JlO7JOQEZ-RlADjJgTri1xiCUDhsti_Bh9YR4NNvxQ/gviz/tq?tqx=out:csv";
+  "https://docs.google.com/spreadsheets/d/1-JlO7JOQEZ-RlADjJgTri1xiCUDhsti_Bh9YR4NNvxQ/export?format=csv";
 
-// CSVのヘッダー名に合わせてキーを指定
-// 例: email, MeMoon_First1000, MeMoon_1000Plus, ChargeAL, NFTCollabAL, GuildMissionAL, GreetingTapAL
+// CSV のヘッダー名に合わせてキーを指定
+// スプシの1行目をこれに揃えるか、ここをスプシ側に合わせて編集する。
 const COLUMN_MAP = {
   email: "email",
   memoonFirst1000: "MeMoon_First1000",
@@ -19,6 +19,7 @@ const COLUMN_MAP = {
 };
 
 // ====== 状態管理 ======
+
 let sheetRows = null;
 let isLoading = false;
 
@@ -29,78 +30,39 @@ function normalizeEmail(value) {
   return value.trim().toLowerCase();
 }
 
-function parseCSV(text) {
-  // シンプルなCSVパーサー（カンマ + ダブルクォート対応の軽量版）
-  const rows = [];
-  let current = [];
-  let currentValue = "";
-  let inQuotes = false;
+// カンマを含まない前提のシンプルCSVパーサー（メール＋フラグ用途には十分）
+function csvToObjects(text) {
+  const lines = text.split(/\r?\n/).filter((l) => l.trim() !== "");
+  if (!lines.length) return [];
 
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    const nextChar = text[i + 1];
+  const headers = lines[0].split(",").map((h) => h.trim());
+  const dataLines = lines.slice(1);
 
-    if (inQuotes) {
-      if (char === '"' && nextChar === '"') {
-        currentValue += '"';
-        i++;
-      } else if (char === '"') {
-        inQuotes = false;
-      } else {
-        currentValue += char;
-      }
-    } else if (char === '"') {
-      inQuotes = true;
-    } else if (char === ",") {
-      current.push(currentValue);
-      currentValue = "";
-    } else if (char === "\n") {
-      current.push(currentValue);
-      rows.push(current);
-      current = [];
-      currentValue = "";
-    } else if (char === "\r") {
-      // ignore
-    } else {
-      currentValue += char;
-    }
-  }
-
-  if (currentValue !== "" || current.length > 0) {
-    current.push(currentValue);
-    rows.push(current);
-  }
-
-  return rows;
-}
-
-function csvToObjects(csvText) {
-  const rows = parseCSV(csvText);
-  if (!rows.length) return [];
-
-  const header = rows[0].map((h) => h.trim());
-  const dataRows = rows.slice(1);
-
-  return dataRows
-    .filter((r) => r.some((v) => v && v.trim() !== ""))
-    .map((row) => {
+  return dataLines
+    .map((line) => line.split(","))
+    .filter((cols) => cols.some((v) => v && v.trim() !== ""))
+    .map((cols) => {
       const obj = {};
-      header.forEach((key, idx) => {
-        obj[key] = row[idx] ?? "";
+      headers.forEach((key, idx) => {
+        obj[key] = cols[idx] !== undefined ? cols[idx] : "";
       });
       return obj;
     });
 }
 
 function toBool(value) {
-  if (!value) return false;
+  if (value === undefined || value === null) return false;
   const v = String(value).trim();
+  if (!v) return false;
+
   const lower = v.toLowerCase();
   if (["true", "1", "yes"].includes(lower)) return true;
   if (["false", "0", "no"].includes(lower)) return false;
-  // ○や⭕などでも true 扱い
+
+  // ○/⭕ 系 → true、× 系 → false に倒す
   if (/[◯○⭕◎]/.test(v)) return true;
   if (/[×✕✖]/.test(v)) return false;
+
   return false;
 }
 
@@ -119,6 +81,7 @@ async function ensureSheetLoaded() {
     if (!res.ok) {
       throw new Error("HTTP " + res.status);
     }
+
     const text = await res.text();
     const rawRows = csvToObjects(text);
 
@@ -132,10 +95,12 @@ async function ensureSheetLoaded() {
       greetingTapAL: toBool(row[COLUMN_MAP.greetingTapAL]),
     }));
 
-    msgEl.textContent = "スプレッドシート読み込み完了。メールアドレスを入力して検索できます。";
+    msgEl.textContent =
+      "スプレッドシート読み込み完了。メールアドレスを入力して検索できます。";
   } catch (err) {
     console.error("シート読み込みエラー:", err);
-    msgEl.textContent = "スプレッドシートの読み込みに失敗しました。URLや公開設定を確認してください。";
+    msgEl.textContent =
+      "スプレッドシートの読み込みに失敗しました。URLや公開設定を確認してください。";
   } finally {
     isLoading = false;
   }
@@ -145,9 +110,12 @@ async function ensureSheetLoaded() {
 
 function updateStatusPills(result) {
   const items = document.querySelectorAll(".nft-item");
+
   items.forEach((item) => {
     const key = item.getAttribute("data-key");
     const pill = item.querySelector(".status-pill[data-status-label]");
+    if (!pill) return;
+
     const iconEl = pill.querySelector(".status-icon");
     const textEl = pill.querySelector(".status-text");
 
@@ -158,11 +126,11 @@ function updateStatusPills(result) {
 
     if (has) {
       pill.classList.add("is-yes");
-      iconEl.textContent = "⭕";
+      iconEl.textContent = "🙆";
       textEl.textContent = "対象";
     } else {
       pill.classList.add("is-no");
-      iconEl.textContent = "❌";
+      iconEl.textContent = "🙅";
       textEl.textContent = "対象外";
     }
   });
@@ -183,7 +151,7 @@ function handleSearchResult(emailInput, row) {
   }
 
   statusLabel.textContent = "対象が見つかりました。";
-  msgEl.textContent = "各項目の⭕ / ❌ を確認してください。";
+  msgEl.textContent = "各項目の 🙆 / 🙅 を確認してください。";
   updateStatusPills(row);
 }
 
@@ -209,11 +177,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     await ensureSheetLoaded();
     if (!sheetRows) {
-      // すでにエラーメッセージは表示済み
+      // 読み込みに失敗している場合は、ensureSheetLoaded側でメッセージ表示済み
       return;
     }
 
-    const hit = sheetRows.find((row) => row.email === normalized) || null;
+    const hit =
+      sheetRows.find((row) => row.email === normalized) || null;
+
     handleSearchResult(emailRaw, hit);
   });
 });
