@@ -1,13 +1,10 @@
 // ====== 設定 ======
 
 // スプレッドシートの CSV エクスポートURL
-// 「ウェブに公開」や「エクスポート」で取得した CSV のURLをここに入れる。
-// 必要に応じて差し替えてOK。
 const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/1-JlO7JOQEZ-RlADjJgTri1xiCUDhsti_Bh9YR4NNvxQ/export?format=csv";
 
 // CSV のヘッダー名に合わせてキーを指定
-// スプシの1行目をこれに揃えるか、ここをスプシ側に合わせて編集する。
 const COLUMN_MAP = {
   email: "email",
   memoonFirst1000: "MeMoon_First1000",
@@ -30,7 +27,7 @@ function normalizeEmail(value) {
   return value.trim().toLowerCase();
 }
 
-// カンマを含まない前提のシンプルCSVパーサー（メール＋フラグ用途には十分）
+// カンマを含まない想定のシンプルCSVパーサー
 function csvToObjects(text) {
   const lines = text.split(/\r?\n/).filter((l) => l.trim() !== "");
   if (!lines.length) return [];
@@ -59,7 +56,7 @@ function toBool(value) {
   if (["true", "1", "yes"].includes(lower)) return true;
   if (["false", "0", "no"].includes(lower)) return false;
 
-  // ○/⭕ 系 → true、× 系 → false に倒す
+  // ○/⭕ 系 → true、× 系 → false
   if (/[◯○⭕◎]/.test(v)) return true;
   if (/[×✕✖]/.test(v)) return false;
 
@@ -177,8 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     await ensureSheetLoaded();
     if (!sheetRows) {
-      // 読み込みに失敗している場合は、ensureSheetLoaded側でメッセージ表示済み
-      return;
+      return; // エラー時は ensureSheetLoaded 側で表示済み
     }
 
     const hit =
