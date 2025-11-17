@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Me-Moon NFT Checker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1 class="hero-title">Me-Moon NFT Checker</h1>
+          <p class="hero-subtitle">
+            メールアドレスを入力して、Me-Moon 関連のNFT受取状況をチェックできます。<br />
+            （文言はあとで自由に書き換えてOK）
+          </p>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-circle"></div>
+          <img src="images/memoon_group_hero.jpg" alt="Me-Moon characters" class="hero-image" />
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="card">
+        <header class="card-header">
+          <div>
+            <h2 class="card-title">メールアドレス照会</h2>
+            <p class="card-subtitle">NFT配布対象になっているメールアドレスかどうかを確認します。</p>
+          </div>
+        </header>
+
+        <form id="lookup-form" class="search-form">
+          <label for="email-input" class="search-label">メールアドレス</label>
+          <div class="search-row">
+            <input
+              id="email-input"
+              type="email"
+              class="search-input"
+              placeholder="email@example.com を入力"
+              autocomplete="email"
+              required
+            />
+            <button type="submit" class="search-button">検索</button>
+          </div>
+          <p id="search-message" class="search-message">未検索です。</p>
+        </form>
+
+        <section class="result-meta">
+          <div class="result-meta-item">
+            <span class="result-meta-label">照会アドレス</span>
+            <span id="result-email" class="result-meta-value">—</span>
+          </div>
+          <div class="result-meta-item">
+            <span class="result-meta-label">ステータス</span>
+            <span id="result-status" class="result-meta-value">—</span>
+          </div>
+        </section>
+
+        <section class="nft-list">
+          <article class="nft-item" data-key="memoonFirst1000">
+            <div class="nft-character">
+              <img src="images/memoon_boy_blue.png" alt="Me-Moon First 1,000" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">Me-Moon First 1,000</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">最初の1,000人向けのNFT枠（テキストはあとで編集OK）。</p>
+            </div>
+          </article>
+
+          <article class="nft-item" data-key="memoon1000plus">
+            <div class="nft-character">
+              <img src="images/memoon_girl_pink.png" alt="Me-Moon 1,000＋" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">Me-Moon 1,000＋</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">1,000人以降のメンバー向けNFT枠。</p>
+            </div>
+          </article>
+
+          <article class="nft-item" data-key="chargeAL">
+            <div class="nft-character">
+              <img src="images/memoon_boy_orange.png" alt="チャージAL" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">チャージAL</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">チャージ企画のAL枠。</p>
+            </div>
+          </article>
+
+          <article class="nft-item" data-key="nftCollabAL">
+            <div class="nft-character">
+              <img src="images/memoon_girl_mint.png" alt="NFTコラボAL" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">NFTコラボAL</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">NFTコラボ用のAL枠。</p>
+            </div>
+          </article>
+
+          <article class="nft-item" data-key="guildMissionAL">
+            <div class="nft-character">
+              <img src="images/memoon_cat_purple.png" alt="ギルドミッションAL" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">ギルドミッションAL</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">ギルドミッション達成者向けAL枠。</p>
+            </div>
+          </article>
+
+          <article class="nft-item" data-key="greetingTapAL">
+            <div class="nft-character">
+              <img src="images/memoon_durian.png" alt="挨拶タップAL" />
+            </div>
+            <div class="nft-content">
+              <div class="nft-header">
+                <h3 class="nft-title">挨拶タップAL</h3>
+                <div class="status-pill" data-status-label>
+                  <span class="status-icon">⭕</span>
+                  <span class="status-text">対象</span>
+                </div>
+              </div>
+              <p class="nft-desc">挨拶タップ企画のAL枠。</p>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <footer class="page-footer">
+        <p>© Me-Moon NFT Checker</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
