@@ -451,3 +451,12 @@ body {
     padding-top: 32px;
   }
 }
+.status-legend {
+  margin: 8px 0 12px;
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.status-legend .legend-icon {
+  margin: 0 2px;
+}
