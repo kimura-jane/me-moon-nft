@@ -1,10 +1,8 @@
 // ====== 設定 ======
 
-// スプレッドシートの CSV エクスポートURL
 const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/1-JlO7JOQEZ-RlADjJgTri1xiCUDhsti_Bh9YR4NNvxQ/export?format=csv";
 
-// CSV のヘッダー名に合わせてキーを指定
 const COLUMN_MAP = {
   email: "email",
   memoonFirst1000: "MeMoon_First1000",
@@ -15,23 +13,19 @@ const COLUMN_MAP = {
   greetingTapAL: "GreetingTapAL",
 };
 
-// ====== 状態管理 ======
-
 let sheetRows = null;
 let isLoading = false;
 
-// ====== ユーティリティ ======
+// ====== util ======
 
-function normalizeEmail(value) {
-  if (!value) return "";
-  return value.trim().toLowerCase();
+function normalizeEmail(v) {
+  if (!v) return "";
+  return v.trim().toLowerCase();
 }
 
-// カンマを含まない想定のシンプルCSVパーサー
 function csvToObjects(text) {
   const lines = text.split(/\r?\n/).filter((l) => l.trim() !== "");
   if (!lines.length) return [];
-
   const headers = lines[0].split(",").map((h) => h.trim());
   const dataLines = lines.slice(1);
 
@@ -56,14 +50,13 @@ function toBool(value) {
   if (["true", "1", "yes"].includes(lower)) return true;
   if (["false", "0", "no"].includes(lower)) return false;
 
-  // ○/⭕ 系 → true、× 系 → false に倒す
   if (/[◯○⭕◎]/.test(v)) return true;
   if (/[×✕✖]/.test(v)) return false;
 
   return false;
 }
 
-// ====== スプレッドシート読み込み ======
+// ====== シート読み込み ======
 
 async function ensureSheetLoaded() {
   if (sheetRows) return;
@@ -75,9 +68,7 @@ async function ensureSheetLoaded() {
 
   try {
     const res = await fetch(SHEET_CSV_URL, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error("HTTP " + res.status);
-    }
+    if (!res.ok) throw new Error("HTTP " + res.status);
 
     const text = await res.text();
     const rawRows = csvToObjects(text);
@@ -103,46 +94,35 @@ async function ensureSheetLoaded() {
   }
 }
 
-// ====== UI 更新 ======
+// ====== UI更新 ======
 
 function updateStatusPills(result) {
   const items = document.querySelectorAll(".nft-item");
 
   items.forEach((item) => {
     const key = item.getAttribute("data-key");
-    const pill = item.querySelector(".status-pill[data-status-label]");
-    if (!pill) return;
+    const yesPill = item.querySelector('.status-pill[data-role="yes"]');
+    const noPill = item.querySelector('.status-pill[data-role="no"]');
+    if (!yesPill || !noPill) return;
 
-    const yesOpt = pill.querySelector('.status-option[data-role="yes"]');
-    const noOpt = pill.querySelector('.status-option[data-role="no"]');
-
-    // has === true  : 対象
-    // has === false : 非対象
-    // has === null  : 未検索 or ヒットなし
     let has = null;
     if (result) {
       has = !!result[key];
     }
 
-    // カード全体のハイライト（対象だけ少し光らせたい場合用）
-    item.classList.toggle("is-active", has === true);
-
     // 一旦リセット
-    [yesOpt, noOpt].forEach((opt) => {
-      if (!opt) return;
-      opt.classList.remove("is-active-yes", "is-active-no");
+    [yesPill, noPill].forEach((pill) => {
+      pill.classList.remove("is-active", "is-inactive");
     });
 
     if (has === true) {
-      // 対象側を明るく、非対象側を暗く
-      if (yesOpt) yesOpt.classList.add("is-active-yes");
-      if (noOpt) noOpt.classList.add("is-active-no");
+      yesPill.classList.add("is-active");
+      noPill.classList.add("is-inactive");
     } else if (has === false) {
-      // 非対象側を明るく、対象側を暗く
-      if (yesOpt) yesOpt.classList.add("is-active-no");
-      if (noOpt) noOpt.classList.add("is-active-yes");
+      noPill.classList.add("is-active");
+      yesPill.classList.add("is-inactive");
     }
-    // has === null のときはデフォルトのまま（両方同じ明るさ）
+    // has === null のときはニュートラル（両方同じ見た目のまま）
   });
 }
 
@@ -161,16 +141,19 @@ function handleSearchResult(emailInput, row) {
   }
 
   statusLabel.textContent = "対象が見つかりました。";
-  msgEl.textContent = "各項目の 🙆 / 🙅 を確認してください。";
+  msgEl.textContent = "各NFTの 対象 / 非対象 を確認してください。";
   updateStatusPills(row);
 }
 
-// ====== イベント初期化 ======
+// ====== 初期化 ======
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("lookup-form");
   const input = document.getElementById("email-input");
   const msgEl = document.getElementById("search-message");
+
+  // 初期状態：両方ニュートラル
+  updateStatusPills(null);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -186,16 +169,11 @@ document.addEventListener("DOMContentLoaded", () => {
     msgEl.textContent = "照会中…";
 
     await ensureSheetLoaded();
-    if (!sheetRows) {
-      return; // 読み込みエラー時は ensureSheetLoaded がメッセージを出している
-    }
+    if (!sheetRows) return;
 
     const hit =
       sheetRows.find((row) => row.email === normalized) || null;
 
     handleSearchResult(emailRaw, hit);
   });
-
-  // 初期状態では両方同じ明るさで表示
-  updateStatusPills(null);
 });
