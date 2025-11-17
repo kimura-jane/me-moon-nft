@@ -56,7 +56,7 @@ function toBool(value) {
   if (["true", "1", "yes"].includes(lower)) return true;
   if (["false", "0", "no"].includes(lower)) return false;
 
-  // ○/⭕ 系 → true、× 系 → false
+  // ○/⭕ 系 → true、× 系 → false に倒す
   if (/[◯○⭕◎]/.test(v)) return true;
   if (/[×✕✖]/.test(v)) return false;
 
@@ -113,23 +113,36 @@ function updateStatusPills(result) {
     const pill = item.querySelector(".status-pill[data-status-label]");
     if (!pill) return;
 
-    const iconEl = pill.querySelector(".status-icon");
-    const textEl = pill.querySelector(".status-text");
+    const yesOpt = pill.querySelector('.status-option[data-role="yes"]');
+    const noOpt = pill.querySelector('.status-option[data-role="no"]');
 
-    const has = result ? !!result[key] : false;
-
-    item.classList.toggle("is-active", has);
-    pill.classList.remove("is-yes", "is-no");
-
-    if (has) {
-      pill.classList.add("is-yes");
-      iconEl.textContent = "🙆";
-      textEl.textContent = "対象";
-    } else {
-      pill.classList.add("is-no");
-      iconEl.textContent = "🙅";
-      textEl.textContent = "対象外";
+    // has === true  : 対象
+    // has === false : 非対象
+    // has === null  : 未検索 or ヒットなし
+    let has = null;
+    if (result) {
+      has = !!result[key];
     }
+
+    // カード全体のハイライト（対象だけ少し光らせたい場合用）
+    item.classList.toggle("is-active", has === true);
+
+    // 一旦リセット
+    [yesOpt, noOpt].forEach((opt) => {
+      if (!opt) return;
+      opt.classList.remove("is-active-yes", "is-active-no");
+    });
+
+    if (has === true) {
+      // 対象側を明るく、非対象側を暗く
+      if (yesOpt) yesOpt.classList.add("is-active-yes");
+      if (noOpt) noOpt.classList.add("is-active-no");
+    } else if (has === false) {
+      // 非対象側を明るく、対象側を暗く
+      if (yesOpt) yesOpt.classList.add("is-active-no");
+      if (noOpt) noOpt.classList.add("is-active-yes");
+    }
+    // has === null のときはデフォルトのまま（両方同じ明るさ）
   });
 }
 
@@ -174,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     await ensureSheetLoaded();
     if (!sheetRows) {
-      return; // エラー時は ensureSheetLoaded 側で表示済み
+      return; // 読み込みエラー時は ensureSheetLoaded がメッセージを出している
     }
 
     const hit =
@@ -182,4 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     handleSearchResult(emailRaw, hit);
   });
+
+  // 初期状態では両方同じ明るさで表示
+  updateStatusPills(null);
 });
