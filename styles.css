@@ -460,3 +460,45 @@ body {
 .status-legend .legend-icon {
   margin: 0 2px;
 }
+.status-legend {
+  margin: 8px 0 12px;
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.status-legend .legend-icon {
+  margin: 0 2px;
+}
+
+/* 丸いバッジ内で「対象／非対象」を両方表示する用 */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.78rem;
+}
+
+.status-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  opacity: 0.6;          /* デフォルト：両方そこそこ見える */
+  transition: opacity 0.2s ease;
+}
+
+.status-separator {
+  opacity: 0.5;
+}
+
+/* 明るい側 */
+.status-option.is-active-yes {
+  opacity: 1;
+}
+
+/* 暗い側 */
+.status-option.is-active-no {
+  opacity: 0.25;
+}
