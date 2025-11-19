@@ -110,7 +110,7 @@ function updateStatusPills(result) {
       has = !!result[key];
     }
 
-    // 一旦リセット
+    // バッジ状態リセット
     [yesPill, noPill].forEach((pill) => {
       pill.classList.remove("is-active", "is-inactive");
     });
@@ -122,7 +122,16 @@ function updateStatusPills(result) {
       noPill.classList.add("is-active");
       yesPill.classList.add("is-inactive");
     }
-    // has === null のときはニュートラル（両方同じ見た目のまま）
+
+    // 対象のときだけリンク表示（First / 1000+）
+    const linkEl = item.querySelector(".nft-link");
+    if (linkEl) {
+      if (has === true) {
+        linkEl.style.display = "block";
+      } else {
+        linkEl.style.display = "none";
+      }
+    }
   });
 }
 
