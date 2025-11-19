@@ -1,259 +1,265 @@
-/* ====== ベース ====== */
-
-:root {
-  --bg: #050816;
-  --card-bg: #0b1220;
-  --card-bg-soft: radial-gradient(circle at top left, #19253b 0%, #050816 55%);
-  --accent: #fe7b72;
-  --accent-blue: #3b82f6;
-  --accent-yellow: #facc15;
-  --text-main: #f9fafb;
-  --text-sub: #9ca3af;
-  --pill-bg: #111827;
-  --pill-on: #fbbf24;
-  --pill-off: #4b5563;
-  --border-soft: rgba(148, 163, 184, 0.35);
-  --shadow-strong: 0 24px 80px rgba(15, 23, 42, 0.9);
-  --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.7);
-  --radius-lg: 32px;
-  --radius-md: 24px;
-  --radius-pill: 999px;
-}
-
+/* ===== Reset-ish ===== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background:
-    radial-gradient(circle at top, #1e293b 0, transparent 55%),
-    radial-gradient(circle at bottom, #0f172a 0, #020617 60%);
-  color: var(--text-main);
+  padding: 0;
 }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #151b2e 0, #050712 55%, #02030a 100%);
+  color: #f5f5ff;
+}
+
+/* ===== Layout ===== */
 
 .page {
-  max-width: 960px;
-  margin: 32px auto 64px;
-  padding: 0 16px 48px;
+  min-height: 100vh;
+  padding: 32px 16px 56px;
 }
 
-/* ====== HERO ====== */
+@media (min-width: 768px) {
+  .page {
+    padding: 40px 24px 72px;
+  }
+}
+
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ===== Card base ===== */
+
+.card {
+  background: radial-gradient(circle at top left, #202742 0, #0b0f1f 60%, #060815 100%);
+  border-radius: 24px;
+  padding: 24px 20px;
+  color: #f5f7ff;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+.card + .card,
+.card + .nft-section,
+.lookup-card + .nft-section {
+  margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 28px 28px;
+  }
+}
+
+/* ===== HERO ===== */
 
 .hero-card {
+  max-width: 960px;
+  margin: 0 auto 28px;
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
-  padding: 28px 24px;
-  margin-bottom: 24px;
-  border-radius: var(--radius-lg);
-  background: var(--card-bg-soft);
-  box-shadow: var(--shadow-strong);
 }
 
 .hero-text {
-  flex: 1 1 0;
+  flex: 1 1 auto;
 }
 
-.hero-kicker {
-  margin: 0 0 8px;
-  letter-spacing: 0.16em;
-  font-size: 11px;
-  font-weight: 600;
+.hero-eyebrow {
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #9ca3af;
+  font-size: 11px;
+  color: #a6b3ff;
+  margin: 0 0 8px;
 }
 
 .hero-title {
-  margin: 0 0 12px;
   font-size: 24px;
-  line-height: 1.25;
+  line-height: 1.3;
+  margin: 0 0 10px;
 }
 
 .hero-lead {
-  margin: 0;
   font-size: 13px;
-  line-height: 1.7;
-  color: var(--text-sub);
+  line-height: 1.6;
+  color: #c3c8f3;
+  margin: 0;
 }
 
-.hero-image-wrap {
-  flex-shrink: 0;
+.hero-figure {
+  flex: 0 0 auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
 }
 
 .hero-image {
-  width: 100%;
-  max-width: 240px; /* ここでサイズを固定しつつレスポンシブ */
-  border-radius: 24px;
-  display: block;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+  width: 140px;
+  max-width: 40vw;
+  height: auto;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
-/* ====== 共通カード ====== */
-
-.lookup-card,
-.nft-item {
-  background: var(--card-bg-soft);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  overflow: hidden;
+/* スマホでも右上に小さめで配置 */
+@media (max-width: 640px) {
+  .hero-card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .hero-image {
+    width: 120px;
+    max-width: 38vw;
+  }
 }
+
+/* ===== Lookup card ===== */
 
 .lookup-card {
-  padding: 24px 20px 20px;
-  margin-bottom: 24px;
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-/* ====== 照会フォーム ====== */
-
-.section-title {
-  margin: 0 0 6px;
+.card-title {
+  margin: 0 0 10px;
   font-size: 18px;
 }
 
-.section-lead {
+.card-desc {
   margin: 0 0 18px;
   font-size: 13px;
-  color: var(--text-sub);
-}
-
-.lookup-form {
-  margin-bottom: 10px;
+  color: #c4caee;
 }
 
 .field-label {
-  display: inline-block;
+  display: block;
+  font-size: 13px;
   margin-bottom: 6px;
-  font-size: 12px;
-  color: var(--text-sub);
 }
 
 .field-row {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .text-input {
   flex: 1 1 auto;
-  padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: #020617;
-  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(3, 8, 24, 0.9);
+  padding: 10px 16px;
+  color: #f5f5ff;
   font-size: 14px;
   outline: none;
 }
 
 .text-input::placeholder {
-  color: #6b7280;
+  color: #7f86b3;
 }
 
 .text-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+  border-color: #4e9dff;
+  box-shadow: 0 0 0 1px rgba(78, 157, 255, 0.45);
 }
 
-.primary-button {
+.primary-btn {
   flex: 0 0 auto;
-  padding: 10px 20px;
   border-radius: 999px;
-  border: none;
+  padding: 10px 22px;
   font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  background: radial-gradient(circle at top left, #f97316, #ec4899);
-  box-shadow: 0 10px 24px rgba(248, 113, 113, 0.55);
+  border: none;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease,
-    filter 0.1s ease;
+  color: #ffffff;
+  background: radial-gradient(circle at 10% 0, #ffb36b 0, #ff5c6c 50%, #ff397c 100%);
+  box-shadow: 0 8px 24px rgba(255, 92, 128, 0.6);
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
 }
 
-.primary-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 6px 16px rgba(248, 113, 113, 0.5);
-  filter: brightness(0.96);
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(255, 92, 128, 0.75);
 }
 
-.lookup-message {
-  margin: 4px 0 10px;
+.primary-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(255, 92, 128, 0.55);
+}
+
+.search-message {
+  margin: 10px 0 12px;
   font-size: 12px;
-  color: var(--text-sub);
+  color: #b5bce6;
 }
 
-.result-box {
-  padding: 10px 12px;
+/* 結果表示カード */
+.lookup-result-card {
   border-radius: 18px;
-  border: 1px dashed rgba(148, 163, 184, 0.4);
-  background: radial-gradient(circle at top left, #111827, #020617);
+  padding: 14px 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.24);
+  background: radial-gradient(circle at top left, rgba(37, 47, 90, 0.7) 0, rgba(7, 10, 26, 0.9) 70%);
 }
 
-.result-row {
+.lookup-result-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  align-items: baseline;
+  gap: 14px;
   font-size: 13px;
 }
 
-.result-row + .result-row {
-  margin-top: 4px;
+.lookup-result-row + .lookup-result-row {
+  margin-top: 8px;
 }
 
-.result-label {
-  color: var(--text-sub);
+.lookup-label {
+  color: #9da6d8;
 }
 
-.result-value {
+.lookup-value {
   font-weight: 500;
 }
 
-/* ====== NFTカード ====== */
+/* ===== NFT list ===== */
 
-.nft-list {
+.nft-section {
+  max-width: 960px;
+  margin: 24px auto 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.nft-item {
-  padding: 18px 16px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.nft-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.85);
-  border-color: rgba(129, 140, 248, 0.55);
-}
-
 .nft-inner {
   display: flex;
-  gap: 14px;
+  align-items: center;
+  gap: 18px;
 }
 
-.nft-thumb {
-  flex: 0 0 70px;
+.nft-avatar {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #4053ff 0, #121839 55%, #050713 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.nft-thumb img {
-  width: 70px;
-  height: 70px;
-  border-radius: 999px;
-  background: #020617;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.85);
+.nft-avatar img {
+  width: 74%;
+  height: auto;
 }
 
 .nft-body {
@@ -263,128 +269,85 @@ body {
 .nft-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+}
+
+.nft-title-block {
+  flex: 1 1 auto;
 }
 
 .nft-title {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.4;
+  font-size: 16px;
+  line-height: 1.3;
 }
 
 .nft-status-group {
   display: flex;
+  flex-wrap: nowrap;
   gap: 6px;
 }
 
 .status-pill {
-  padding: 5px 8px;
-  min-width: 64px;
-  border-radius: var(--radius-pill);
+  padding: 5px 10px;
+  border-radius: 999px;
   font-size: 11px;
+  min-width: 64px;
   text-align: center;
-  background: var(--pill-bg);
-  color: #9ca3af;
-  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(9, 13, 31, 0.9);
+  color: #9fa7da;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* JS側で付ける状態クラス */
+/* 状態別の色 */
 .status-pill.is-active[data-role="yes"] {
-  background: radial-gradient(circle at top, #facc15, #f97316);
-  color: #111827;
-  border-color: transparent;
+  background: linear-gradient(90deg, #ffc960, #ffb63a);
+  color: #2b1a00;
+  border-color: rgba(255, 255, 255, 0.0);
 }
 
 .status-pill.is-active[data-role="no"] {
-  background: radial-gradient(circle at top, #4b5563, #111827);
-  color: #e5e7eb;
-  border-color: transparent;
-  opacity: 0.85;
+  background: linear-gradient(90deg, #ff6b88, #ff2f4f);
+  color: #ffeaf0;
+  border-color: rgba(255, 255, 255, 0.0);
 }
 
 .status-pill.is-inactive {
-  opacity: 0.35;
+  opacity: 0.25;
 }
 
-.nft-desc {
-  margin: 0 0 10px;
-  font-size: 12px;
-  color: var(--text-sub);
-}
-
-/* NFT取得ボタン（リンクは JS が display を切り替える） */
-
-.nft-link {
-  display: none; /* 対象のときだけ JS で block にする */
-  text-decoration: none;
-}
-
-.nft-button {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: none;
-  background: linear-gradient(90deg, #3b82f6, #22d3ee);
-  color: #0b1120;
+.nft-description {
+  margin: 8px 0 10px;
   font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease,
-    filter 0.12s ease;
+  color: #c3c8f0;
 }
 
-.nft-button:hover {
-  filter: brightness(1.03);
+/* 対象のときだけ JS で display:block にされるリンク */
+.nft-link {
+  display: none;
+  margin-top: 4px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4c8dff, #4ad2ff);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(56, 145, 255, 0.6);
 }
 
-.nft-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.7);
-}
+/* ===== Responsive adjustments ===== */
 
-/* ====== レスポンシブ ====== */
-
-@media (max-width: 720px) {
-  .page {
-    margin-top: 20px;
-  }
-
-  .hero-card {
-    flex-direction: column;
+@media (max-width: 640px) {
+  .nft-inner {
     align-items: flex-start;
   }
-
-  .hero-image-wrap {
-    align-self: center;
+  .nft-header-row {
+    align-items: flex-start;
   }
-
-  .hero-image {
-    max-width: 220px;
-  }
-
-  .lookup-card,
-  .nft-item {
-    border-radius: 24px;
-  }
-
-  .nft-inner {
-    align-items: center;
-  }
-}
-
-@media (min-width: 960px) {
-  .page {
-    margin-top: 40px;
-  }
-
-  .hero-title {
-    font-size: 28px;
-  }
-
-  .hero-image {
-    max-width: 260px;
+  .nft-status-group {
+    flex-shrink: 0;
   }
 }
