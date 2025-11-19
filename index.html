@@ -3,252 +3,281 @@
 <head>
   <meta charset="UTF-8" />
   <title>Me-Moon NFT Checker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="メールアドレスを入力して、Me-Moon の NFT 受取状況をチェックできます。" />
+
+  <!-- OGP -->
+  <meta property="og:title" content="Me-Moon NFT Checker" />
+  <meta property="og:description" content="メールアドレスを入力して、Me-Moon の NFT 受取状況をチェックできます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kimura-jane.github.io/" />
+  <meta property="og:image" content="https://kimura-jane.github.io/memoon_group_hero.jpg" />
+  <meta property="og:site_name" content="Me-Moon NFT Checker" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Me-Moon NFT Checker" />
+  <meta name="twitter:description" content="メールアドレスを入力して、Me-Moon の NFT 受取状況をチェックできます。" />
+  <meta name="twitter:image" content="https://kimura-jane.github.io/memoon_group_hero.jpg" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="page">
-    <!-- ===== ヒーロー ===== -->
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <h1 class="hero-title">Me-Moon NFT Checker</h1>
-          <p class="hero-subtitle">
-            メールアドレスを入力して、Me-Moon の NFT 受取状況をチェックしよう。
+  <div class="page-root">
+    <main class="page-main">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-text">
+          <h1 class="hero-title">Me-Moon NFT<br />Checker</h1>
+          <p class="hero-lead">
+            メールアドレスを入力して、Me-Moon の<br class="sp-only" />NFT 受取状況をチェックしよう。
           </p>
         </div>
         <div class="hero-visual">
-          <div class="hero-circle"></div>
-          <img
-            src="memoon_group_hero.jpg"
-            alt="Me-Moon characters"
-            class="hero-image"
-          />
-        </div>
-      </div>
-    </header>
-
-    <main class="main">
-      <!-- ===== 入力＆メタ ===== -->
-      <section class="card">
-        <header class="card-header">
-          <div>
-            <h2 class="card-title">メールアドレス照会</h2>
-            <p class="card-subtitle">
-              NFT を受け取れるメールアドレスかどうかを確認します。
-            </p>
+          <div class="hero-orbit"></div>
+          <div class="hero-image-frame">
+            <img src="./memoon_group_hero.jpg" alt="Me-Moon メンバーイラスト" class="hero-image" />
           </div>
+        </div>
+      </section>
+
+      <!-- Lookup card -->
+      <section class="card card-lookup">
+        <header class="card-header">
+          <h2 class="card-title">メールアドレス照会</h2>
+          <p class="card-sub">
+            NFT を受け取れるメールアドレスかどうかを確認します。
+          </p>
         </header>
 
-        <form id="lookup-form" class="search-form">
-          <label for="email-input" class="search-label">メールアドレス</label>
-          <div class="search-row">
+        <div class="lookup-form">
+          <label for="emailInput" class="field-label">メールアドレス</label>
+          <div class="field-row">
             <input
-              id="email-input"
+              id="emailInput"
               type="email"
-              class="search-input"
-              placeholder="email@example.com を入力"
+              inputmode="email"
               autocomplete="email"
-              required
+              placeholder="email@example.com を入力"
+              class="email-input"
             />
-            <button type="submit" class="search-button">検索</button>
+            <button id="searchButton" class="primary-button">検索</button>
           </div>
-          <p id="search-message" class="search-message">未検索です。</p>
-        </form>
+          <p class="field-help">各NFTの 対象 / 非対象 を確認してください。</p>
+        </div>
 
-        <section class="result-meta">
-          <div class="result-meta-item">
-            <span class="result-meta-label">照会アドレス</span>
-            <span id="result-email" class="result-meta-value">—</span>
+        <div class="lookup-result">
+          <div class="lookup-row">
+            <span class="lookup-label">照会アドレス</span>
+            <span id="lookupAddress" class="lookup-value lookup-value--muted">—</span>
           </div>
-          <div class="result-meta-item">
-            <span class="result-meta-label">ステータス</span>
-            <span id="result-status" class="result-meta-value">—</span>
+          <div class="lookup-row">
+            <span class="lookup-label">ステータス</span>
+            <span id="lookupStatus" class="lookup-value lookup-value--muted">—</span>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- ===== NFT 一覧 ===== -->
-        <section class="nft-list">
+      <!-- NFT list -->
+      <section class="nft-list-section">
+        <div class="nft-list">
           <!-- Me-Moon First 1,000 -->
-          <article class="nft-item" data-key="memoonFirst1000">
-            <div class="nft-character">
-              <img src="memoon_boy_blue.png" alt="Me-Moon First 1,000" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">Me-Moon First 1,000</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <article class="nft-card" data-nft-key="MeMoon_First1000">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_boy_blue.png" alt="Me-Moon First 1,000" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">Me-Moon First<br />1,000</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="MeMoon_First1000">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="MeMoon_First1000">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <button
+                    class="nft-claim-button is-hidden"
+                    data-claim-id="MeMoon_First1000"
+                    type="button"
+                  >
+                    NFT取得ページを開く
+                  </button>
+                  <p class="nft-description">
+                    フォロー先着1,000人向けの記念NFT。
+                  </p>
+                </div>
               </div>
-
-              <!-- 対象のときだけ表示するリンク -->
-              <div class="nft-link" data-link-key="memoonFirst1000">
-                <a
-                  href="https://daredemo.mad-member-tools.com/airdrop/jyqdI3mWAEix5QNW"
-                  class="nft-link-button"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  NFT取得ページを開く
-                </a>
-              </div>
-
-              <p class="nft-desc">フォロー先着1,000人向けの記念NFT。</p>
             </div>
           </article>
 
-          <!-- Me-Moon 1,000＋ -->
-          <article class="nft-item" data-key="memoon1000plus">
-            <div class="nft-character">
-              <img src="memoon_girl_pink.png" alt="Me-Moon 1,000＋" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">Me-Moon 1,000＋</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <!-- Me-Moon 1,000+ -->
+          <article class="nft-card" data-nft-key="MeMoon_1000Plus">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_girl_pink.png" alt="Me-Moon 1,000+" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">Me-Moon<br />1,000＋</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="MeMoon_1000Plus">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="MeMoon_1000Plus">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <button
+                    class="nft-claim-button is-hidden"
+                    data-claim-id="MeMoon_1000Plus"
+                    type="button"
+                  >
+                    NFT取得ページを開く
+                  </button>
+                  <p class="nft-description">
+                    1,000人以降の条件達成メンバー向けNFT。
+                  </p>
+                </div>
               </div>
-
-              <!-- 対象のときだけ表示するリンク -->
-              <div class="nft-link" data-link-key="memoon1000plus">
-                <a
-                  href="https://daredemo.mad-member-tools.com/airdrop/9FKD3e5SZNH6ntl7"
-                  class="nft-link-button"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  NFT取得ページを開く
-                </a>
-              </div>
-
-              <p class="nft-desc">
-                1,000人以降の条件達成メンバー向けNFT。
-              </p>
             </div>
           </article>
 
           <!-- チャージAL -->
-          <article class="nft-item" data-key="chargeAL">
-            <div class="nft-character">
-              <img src="memoon_boy_orange.png" alt="チャージAL" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">チャージAL</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <article class="nft-card" data-nft-key="ChargeAL">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_boy_orange.png" alt="チャージAL" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">チャージAL</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="ChargeAL">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="ChargeAL">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <p class="nft-description">
+                    「チャージAL」を持っていた人向けNFT。
+                  </p>
+                </div>
               </div>
-              <p class="nft-desc">「チャージAL」を持っていた人向けNFT。</p>
             </div>
           </article>
 
           <!-- NFTコラボAL -->
-          <article class="nft-item" data-key="nftCollabAL">
-            <div class="nft-character">
-              <img src="memoon_girl_mint.png" alt="NFTコラボAL" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">NFTコラボAL</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <article class="nft-card" data-nft-key="NFTCollabAL">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_girl_mint.png" alt="NFTコラボAL" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">NFTコラボAL</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="NFTCollabAL">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="NFTCollabAL">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <p class="nft-description">
+                    「NFTコラボAL」を持っていた人向けNFT。
+                  </p>
+                </div>
               </div>
-              <p class="nft-desc">「NFTコラボAL」を持っていた人向けNFT。</p>
             </div>
           </article>
 
           <!-- ギルドミッションAL -->
-          <article class="nft-item" data-key="guildMissionAL">
-            <div class="nft-character">
-              <img src="memoon_cat_purple.png" alt="ギルドミッションAL" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">ギルドミッションAL</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <article class="nft-card" data-nft-key="GuildMissionAL">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_cat_purple.png" alt="ギルドミッションAL" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">ギルドミッションAL</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="GuildMissionAL">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="GuildMissionAL">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <p class="nft-description">
+                    「ギルドミッションAL」を持っていた人向けNFT。
+                  </p>
+                </div>
               </div>
-              <p class="nft-desc">「ギルドミッションAL」を持っていた人向けNFT。</p>
             </div>
           </article>
 
           <!-- 挨拶タップAL -->
-          <article class="nft-item" data-key="greetingTapAL">
-            <div class="nft-character">
-              <img src="memoon_durian.png" alt="挨拶タップAL" />
-            </div>
-            <div class="nft-content">
-              <div class="nft-header">
-                <h3 class="nft-title">挨拶タップAL</h3>
-                <div class="status-group" data-status-group>
-                  <div class="status-pill status-yes" data-role="yes">
-                    <span class="status-icon">🙆</span>
-                    <span class="status-text">対象</span>
-                  </div>
-                  <div class="status-pill status-no" data-role="no">
-                    <span class="status-icon">🙅</span>
-                    <span class="status-text">非対象</span>
+          <article class="nft-card" data-nft-key="GreetingTapAL">
+            <div class="nft-card-inner">
+              <div class="nft-avatar">
+                <img src="./memoon_durian.png" alt="挨拶タップAL" />
+              </div>
+              <div class="nft-main">
+                <div class="nft-header-row">
+                  <h3 class="nft-title">挨拶タップAL</h3>
+                  <div class="nft-status-group">
+                    <div class="status-pill status-pill--target" data-status-target="GreetingTapAL">
+                      <span class="status-icon">🧑‍🚀</span>
+                      <span class="status-label">対象</span>
+                    </div>
+                    <div class="status-pill status-pill--nontarget" data-status-nontarget="GreetingTapAL">
+                      <span class="status-icon">🙅‍♀️✉️</span>
+                      <span class="status-label">非対象</span>
+                    </div>
                   </div>
                 </div>
+                <div class="nft-body">
+                  <p class="nft-description">
+                    「挨拶タップAL」を持っていた人向けNFT。
+                  </p>
+                </div>
               </div>
-              <p class="nft-desc">「挨拶タップAL」を持っていた人向けNFT。</p>
             </div>
           </article>
-        </section>
+        </div>
       </section>
-
-      <footer class="page-footer">
-        <p>© Me-Moon NFT Checker</p>
-      </footer>
     </main>
   </div>
 
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
