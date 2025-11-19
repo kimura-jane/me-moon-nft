@@ -6,33 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="page">
+    <!-- ===== ヒーロー ===== -->
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-copy">
           <h1 class="hero-title">Me-Moon NFT Checker</h1>
           <p class="hero-subtitle">
-            メールアドレスを入力して、Me-MoonのNFT受取状況をチェックしよう。
+            メールアドレスを入力して、Me-Moon の NFT 受取状況をチェックしよう。
           </p>
         </div>
         <div class="hero-visual">
           <div class="hero-circle"></div>
-          <img src="memoon_group_hero.jpg" alt="Me-Moon characters" class="hero-image" />
+          <img
+            src="memoon_group_hero.png"
+            alt="Me-Moon characters"
+            class="hero-image"
+          />
         </div>
       </div>
     </header>
 
     <main class="main">
+      <!-- ===== 入力＆メタ ===== -->
       <section class="card">
         <header class="card-header">
           <div>
             <h2 class="card-title">メールアドレス照会</h2>
             <p class="card-subtitle">
-              NFTを受け取れるメールアドレスかどうかを確認します。
+              NFT を受け取れるメールアドレスかどうかを確認します。
             </p>
           </div>
         </header>
@@ -64,6 +73,7 @@
           </div>
         </section>
 
+        <!-- ===== NFT 一覧 ===== -->
         <section class="nft-list">
           <!-- Me-Moon First 1,000 -->
           <article class="nft-item" data-key="memoonFirst1000">
@@ -74,16 +84,29 @@
               <div class="nft-header">
                 <h3 class="nft-title">Me-Moon First 1,000</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
                 </div>
               </div>
+
+              <!-- 対象のときだけ表示するリンク -->
+              <div class="nft-link" data-link-key="memoonFirst1000">
+                <a
+                  href="https://daredemo.mad-member-tools.com/airdrop/jyqdI3mWAEix5QNW"
+                  class="nft-link-button"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  NFT取得ページを開く
+                </a>
+              </div>
+
               <p class="nft-desc">フォロー先着1,000人向けの記念NFT。</p>
             </div>
           </article>
@@ -97,17 +120,32 @@
               <div class="nft-header">
                 <h3 class="nft-title">Me-Moon 1,000＋</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
                 </div>
               </div>
-              <p class="nft-desc">1,000人以降の条件達成メンバー向けNFT。</p>
+
+              <!-- 対象のときだけ表示するリンク -->
+              <div class="nft-link" data-link-key="memoon1000plus">
+                <a
+                  href="https://daredemo.mad-member-tools.com/airdrop/9FKD3e5SZNH6ntl7"
+                  class="nft-link-button"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  NFT取得ページを開く
+                </a>
+              </div>
+
+              <p class="nft-desc">
+                1,000人以降の条件達成メンバー向けNFT。
+              </p>
             </div>
           </article>
 
@@ -120,11 +158,11 @@
               <div class="nft-header">
                 <h3 class="nft-title">チャージAL</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
@@ -143,11 +181,11 @@
               <div class="nft-header">
                 <h3 class="nft-title">NFTコラボAL</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
@@ -166,11 +204,11 @@
               <div class="nft-header">
                 <h3 class="nft-title">ギルドミッションAL</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
@@ -189,11 +227,11 @@
               <div class="nft-header">
                 <h3 class="nft-title">挨拶タップAL</h3>
                 <div class="status-group" data-status-group>
-                  <div class="status-pill" data-role="yes">
+                  <div class="status-pill status-yes" data-role="yes">
                     <span class="status-icon">🙆</span>
                     <span class="status-text">対象</span>
                   </div>
-                  <div class="status-pill" data-role="no">
+                  <div class="status-pill status-no" data-role="no">
                     <span class="status-icon">🙅</span>
                     <span class="status-text">非対象</span>
                   </div>
