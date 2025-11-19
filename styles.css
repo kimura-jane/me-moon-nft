@@ -1,4 +1,4 @@
-/* Base */
+/* ===== Base ===== */
 
 *,
 *::before,
@@ -19,6 +19,13 @@ body {
   background: radial-gradient(circle at top, #171c3b 0, #050711 55%, #02030a 100%);
 }
 
+/* 画像が暴走しないように一括リセット */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .page-root {
   min-height: 100vh;
   padding: 24px 16px 48px;
@@ -31,7 +38,7 @@ body {
   max-width: 980px;
 }
 
-/* Hero */
+/* ===== Hero ===== */
 
 .hero {
   display: flex;
@@ -114,7 +121,7 @@ body {
   object-fit: cover;
 }
 
-/* Cards */
+/* ===== Cards / Lookup ===== */
 
 .card {
   padding: 24px 24px 20px;
@@ -142,8 +149,6 @@ body {
   font-size: 13px;
   color: #9ca9ff;
 }
-
-/* Lookup form */
 
 .lookup-form {
   margin-bottom: 18px;
@@ -211,8 +216,6 @@ body {
   color: #a5b4fc;
 }
 
-/* Lookup result */
-
 .lookup-result {
   margin-top: 10px;
   padding: 12px 14px;
@@ -242,7 +245,7 @@ body {
   color: #6b7280;
 }
 
-/* NFT list */
+/* ===== NFT list ===== */
 
 .nft-list-section {
   margin-top: 8px;
@@ -263,6 +266,7 @@ body {
   padding: 14px 18px;
 }
 
+/* ここでキャラのサイズを固定する */
 .nft-card-inner {
   display: flex;
   align-items: center;
@@ -281,9 +285,10 @@ body {
   overflow: hidden;
 }
 
+/* アバター画像は必ず 72x72 に収める */
 .nft-avatar img {
-  width: 82%;
-  height: 82%;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
 }
 
@@ -336,8 +341,6 @@ body {
 .status-label {
   letter-spacing: 0.08em;
 }
-
-/* ON / OFF の見た目 */
 
 .status-pill--target {
   background: radial-gradient(circle at top left, rgba(252, 211, 77, 0.3), rgba(161, 98, 7, 0.65));
@@ -405,7 +408,7 @@ body {
   display: none;
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
 
 @media (max-width: 768px) {
   .page-root {
@@ -445,6 +448,11 @@ body {
   }
 
   .nft-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .nft-avatar img {
     width: 64px;
     height: 64px;
   }
