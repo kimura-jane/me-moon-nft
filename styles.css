@@ -1,4 +1,4 @@
-/* ====================== base ====================== */
+/* ===== ベース ===== */
 
 *,
 *::before,
@@ -13,121 +13,79 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
-  background: radial-gradient(circle at top left, #232a4f 0, #050712 55%, #02030a);
-  color: #f7f8fc;
-  -webkit-font-smoothing: antialiased;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", sans-serif;
+  background: radial-gradient(circle at top, #202547 0, #050715 55%, #05040c 100%);
+  color: #f7f7ff;
 }
 
 .page {
   min-height: 100vh;
 }
 
-/* ====================== HERO ====================== */
+/* ===== HERO ===== */
 
 .hero {
+  padding: 24px 16px 8px;
+}
+
+.hero-inner {
   max-width: 1040px;
   margin: 0 auto;
-  padding: 32px 20px 8px;
+  padding: 20px 20px 18px;
+  border-radius: 20px;
+  background: radial-gradient(circle at top left, #2c3c7a 0, #121420 55%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-}
-
-.hero-text {
-  flex: 1 1 auto;
+  gap: 16px;
 }
 
 .hero-title {
-  margin: 0 0 12px;
-  font-size: 26px;
-  letter-spacing: 0.06em;
+  margin: 0 0 8px;
+  font-size: 22px;
+  letter-spacing: 0.02em;
 }
 
 .hero-lead {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #c4c8d6;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c9cee8;
 }
 
 .hero-visual {
   flex: 0 0 auto;
 }
 
-.hero-image-frame {
-  width: 180px;
+.hero-visual img {
+  display: block;
+  width: 140px;           /* スマホではこのくらい */
   max-width: 40vw;
-  aspect-ratio: 1 / 1;
-  border-radius: 24px;
-  background: radial-gradient(circle at 30% 10%, #ff8af3, #5f37ff 45%, #111629);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
   border-radius: 18px;
-  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .hero-title {
-    font-size: 22px;
-  }
-
-  .hero-image-frame {
-    width: 132px;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-
-  .hero-image-frame {
-    width: 140px;
-    align-self: flex-end;
-  }
-
-  .hero-title {
-    font-size: 20px;
-  }
-}
-
-/* ====================== main layout ====================== */
+/* ===== メインレイアウト ===== */
 
 .main {
-  max-width: 1040px;
-  margin: 0 auto 40px;
-  padding: 0 20px 40px;
+  padding: 0 16px 40px;
 }
 
-/* ====================== Card ====================== */
+.section {
+  max-width: 1040px;
+  margin: 0 auto 20px;
+}
+
+/* ===== カード / フォーム ===== */
 
 .card {
-  border-radius: 24px;
-  background: radial-gradient(circle at top left, #151b32, #050815 60%, #050712);
-  padding: 20px 18px 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-  margin-bottom: 24px;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, #1e2a51 0, #080a13 60%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+  padding: 20px 18px 22px;
 }
-
-/* ====================== lookup ====================== */
 
 .section-title {
   margin: 0 0 6px;
@@ -135,152 +93,143 @@ body {
 }
 
 .section-desc {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   font-size: 13px;
-  color: #c2c6d3;
-}
-
-.lookup-form {
-  margin-top: 10px;
+  color: #c9cee8;
 }
 
 .field-label {
   display: block;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-.field-row {
-  display: flex;
-  align-items: stretch;
-  gap: 10px;
-}
-
-.text-input {
-  flex: 1 1 auto;
-  border-radius: 999px;
-  border: 1px solid #444b66;
-  background: rgba(5, 11, 25, 0.9);
-  color: #fff;
-  padding: 10px 16px;
-  font-size: 14px;
-}
-
-.text-input::placeholder {
-  color: #7e85a1;
-}
-
-.text-input:focus {
-  outline: none;
-  border-color: #4f8fff;
-  box-shadow: 0 0 0 1px rgba(79, 143, 255, 0.4);
-}
-
-.primary-button {
-  flex: 0 0 auto;
-  border-radius: 999px;
-  border: none;
-  padding: 0 22px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  background: linear-gradient(135deg, #ff8a4a, #ff4a76);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
-}
-
-.primary-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
-}
-
-.helper {
-  margin: 8px 0 0;
-  font-size: 12px;
-  color: #9ca1b8;
-}
-
-.lookup-result {
-  margin-top: 18px;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(120, 129, 163, 0.6);
+  margin: 10px 0 4px;
   font-size: 13px;
 }
 
 .lookup-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.text-input {
+  flex: 1;
+  border-radius: 999px;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: #070a16;
+  color: #f7f7ff;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.text-input::placeholder {
+  color: #717896;
+}
+
+.btn-primary {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #ff7c35, #ff2754);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  background: #3c7afe;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.search-message {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #a5acd6;
+}
+
+.lookup-result {
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.09);
+  font-size: 13px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 4px;
 }
 
-.lookup-row dt {
-  min-width: 80px;
-  color: #9da4c0;
+.result-label {
+  color: #a5acd6;
 }
 
-.lookup-row dd {
+.result-value {
+  font-weight: 500;
+}
+
+/* ===== NFT リスト ===== */
+
+.nft-list {
+  list-style: none;
   margin: 0;
-}
-
-@media (max-width: 520px) {
-  .field-row {
-    flex-direction: column;
-  }
-
-  .primary-button {
-    width: 100%;
-    padding: 10px 0;
-    text-align: center;
-  }
-}
-
-/* ====================== NFT cards ====================== */
-
-.nft-section {
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .nft-card {
-  border-radius: 26px;
-  background: radial-gradient(circle at top left, #151a2e, #050815 60%, #050712);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65);
-  overflow: hidden;
-}
-
-.nft-inner {
-  display: flex;
-  align-items: stretch;
-  padding: 14px 16px 16px;
-  gap: 12px;
-}
-
-.nft-thumb {
-  flex: 0 0 88px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nft-thumb img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+  border-radius: 20px;
+  background: radial-gradient(circle at top, #192443 0, #050813 65%);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  padding: 14px 16px 14px;
 }
 
 .nft-main {
-  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nft-illust {
+  width: 72px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.nft-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .nft-header-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
 }
 
 .nft-title {
@@ -289,80 +238,72 @@ body {
 }
 
 .nft-status-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: flex;
+  gap: 6px;
 }
 
 .status-pill {
-  padding: 5px 10px;
-  border-radius: 999px;
+  padding: 5px 8px;
   font-size: 11px;
-  min-width: 70px;
-  text-align: center;
-  border: 1px solid rgba(120, 129, 163, 0.7);
-  background: rgba(6, 10, 26, 0.95);
-  color: #9297b4;
-}
-
-/* on/off は JS から class を切り替える */
-.status-pill--hit.is-on {
-  background: radial-gradient(circle at 30% 0, #ffd36a, #ffb437);
-  border-color: transparent;
-  color: #3a2500;
-}
-
-.status-pill--miss.is-on {
-  background: radial-gradient(circle at 30% 0, #ff8484, #ff4141);
-  border-color: transparent;
-  color: #330000;
-}
-
-.nft-claim-button {
-  align-self: flex-start;
-  display: none; /* ← 初期状態は非表示 */
-  margin-top: 6px;
-  padding: 7px 16px;
   border-radius: 999px;
-  border: none;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  color: #0e1020;
-  background: #f4f6ff;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+  min-width: 66px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  color: #c9cee8;
 }
 
-.nft-claim-button.is-visible {
-  display: inline-flex;
+/* 状態色 */
+.status-pill.is-active[data-role="yes"] {
+  background: radial-gradient(circle at top, #ffd76a 0, #ffb31a 60%);
+  color: #3a2600;
+}
+
+.status-pill.is-active[data-role="no"] {
+  background: radial-gradient(circle at top, #ff7a85 0, #ff4150 60%);
+  color: #3d0404;
+}
+
+.status-pill.is-inactive {
+  opacity: 0.25;
+}
+
+.nft-link {
+  margin-top: 6px;
+  /* JSで対象のときだけ block にする */
+  display: none;
 }
 
 .nft-desc {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
-  color: #c2c7dc;
+  color: #c9cee8;
 }
 
-@media (max-width: 640px) {
-  .nft-inner {
-    padding: 14px 14px 16px;
+/* ===== レスポンシブ ===== */
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 32px;
   }
 
-  .nft-thumb {
-    flex-basis: 76px;
+  .hero-inner {
+    padding: 26px 28px 24px;
   }
 
-  .nft-thumb img {
-    width: 72px;
-    height: 72px;
+  .hero-title {
+    font-size: 26px;
   }
 
-  .nft-header-row {
-    align-items: flex-start;
-    flex-direction: column;
+  .hero-lead {
+    font-size: 14px;
   }
 
-  .nft-status-group {
-    align-self: flex-start;
+  .hero-visual img {
+    width: 180px;
+    max-width: 220px;
+  }
+
+  .nft-illust {
+    width: 80px;
   }
 }
