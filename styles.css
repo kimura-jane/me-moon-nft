@@ -430,3 +430,47 @@ body {
     font-size: 10px;
   }
 }
+/* ===== NFTカードのレイアウト調整 ===== */
+
+/* カード全体を横並びレイアウトにする */
+.nft-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* カード内のキャラ画像は必ずこのサイズに収める */
+.nft-card img {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* テキスト側は残り幅いっぱい使う */
+.nft-card-content,
+.nft-card-main,
+.nft-card-body {
+  flex: 1 1 auto;
+}
+
+/* 対象 / 非対象 の2つを横並びに固定 */
+.nft-status-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ピルを横並びのバッジとして扱う */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  font-size: 11px;
+  min-width: 70px;
+  box-sizing: border-box;
+}
